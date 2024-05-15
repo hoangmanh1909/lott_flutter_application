@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.lott_flutter_application.app-mergeReleaseResources-10:/values-zu/values-zu.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\MANH-HV\\.gradle\\caches\\transforms-3\\a027156346e55676c7fb7b6d35ad0d6e\\transformed\\core-1.6.0\\res\\values-zu\\values-zu.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
