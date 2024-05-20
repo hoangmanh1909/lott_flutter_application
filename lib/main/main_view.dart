@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
-import 'dart:convert';
-
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
-import 'package:awesome_bottom_bar/tab_item.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:flutter/material.dart';
+import 'package:lott_flutter_application/main/home_view.dart';
 import 'package:lott_flutter_application/main/keno_live_view.dart';
+
+import 'keno_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -16,12 +16,10 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  int _selectedIndex = 0;
-
   final List<Widget> _widgetOptions = [
+    HomeView(),
     KenoLiveView(),
-    KenoLiveView(),
-    KenoLiveView(),
+    ResultKenoView(),
   ];
   bool isShowHistory = false;
   @override
@@ -51,10 +49,10 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       body: SafeArea(
         child: _widgetOptions.isNotEmpty
-            ? _widgetOptions.elementAt(_selectedIndex)
+            ? _widgetOptions.elementAt(visit)
             : SizedBox.shrink(),
       ),
-      bottomNavigationBar: BottomBarInspiredOutside(
+      bottomNavigationBar: BottomBarInspiredInside(
         items: items,
         backgroundColor: Colors.white,
         color: Colors.blue,
@@ -63,10 +61,9 @@ class _MainViewState extends State<MainView> {
         onTap: (int index) => setState(() {
           visit = index;
         }),
-        top: -25,
         animated: true,
         itemStyle: ItemStyle.circle,
-        chipStyle: const ChipStyle(drawHexagon: true),
+        chipStyle: const ChipStyle(convexBridge: true),
       ),
     );
   }
