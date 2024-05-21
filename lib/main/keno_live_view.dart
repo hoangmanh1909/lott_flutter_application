@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flip_board/flip_clock.dart';
@@ -9,10 +10,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 import '../controller/result_controller.dart';
+import '../model/response/get_draw_keno_response.dart';
 import '../model/response/get_result_keno_response.dart';
 import '../model/response/response_object.dart';
 import '../model/selected_item_model.dart';
-import '../utils/common.dart';
+import '../utils/color.dart';
 import '../utils/dialog_process.dart';
 
 class KenoLiveView extends StatefulWidget {
@@ -27,11 +29,15 @@ class _KenoLiveView extends State<KenoLiveView> {
   final ResultController _con = ResultController();
 
   List<GetResultKenoResponse>? resultKenos;
+  GetDrawKenoResponse? drawKenoResponse;
+  String drawCode = "#";
+  int secondCountdown = 0;
+  Timer? timer;
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      getResultKeno();
+      getData();
     });
     late PlatformWebViewControllerCreationParams params =
         const PlatformWebViewControllerCreationParams();
@@ -75,12 +81,57 @@ class _KenoLiveView extends State<KenoLiveView> {
     _controller = controller;
   }
 
-  getResultKeno() async {
+  getData() async {
     if (mounted) {
       showProcess(context);
     }
-    ResponseObject res = await _con.getResultKeno();
+    await getDrawKeno();
+    await getResultKeno();
     if (mounted) Navigator.of(context).pop();
+  }
+
+  getDrawKeno() async {
+    ResponseObject res = await _con.getDrawKeno();
+    if (res.code == "00") {
+      drawKenoResponse = GetDrawKenoResponse.fromJson(jsonDecode(res.data!));
+      secondCountdown = drawKenoResponse!.closeTime!;
+      drawCode = drawKenoResponse!.drawCode!;
+      setState(() {});
+      if (drawKenoResponse != null) {
+        startTimer();
+      }
+    }
+  }
+
+  void startTimer() {
+    Duration oneSec = Duration(seconds: 1);
+    timer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (secondCountdown == 0) {
+          Future.delayed(Duration(seconds: 1), () {
+            getData();
+          });
+
+          setState(() {});
+        } else {
+          setState(() {
+            secondCountdown--;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) timer!.cancel();
+    super.dispose();
+  }
+
+  getResultKeno() async {
+    ResponseObject res = await _con.getResultKeno();
+
     if (res.code == "00") {
       setState(() {
         resultKenos = List<GetResultKenoResponse>.from((jsonDecode(res.data!)
@@ -102,69 +153,71 @@ class _KenoLiveView extends State<KenoLiveView> {
           title: const Text("Trực tiếp Keno"),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buidLink(),
-              Container(
-                  height: 60,
-                  width: double.infinity,
-                  margin: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const <BoxShadow>[
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 15.0,
-                          offset: Offset(0.0, 0.75))
-                    ],
-                    borderRadius: BorderRadius.all(Radius.circular(6)),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Image(
-                              image: AssetImage("assets/img/keno.png"),
-                              width: 80,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            decoration: BoxDecoration(
-                              color: Colors.blue[200],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(6)),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "Kỳ quay",
-                                  style: TextStyle(color: Colors.blue[900]),
-                                ),
-                                Text("0156789",
-                                    style: TextStyle(
-                                        color: Colors.blue[900],
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18))
-                              ],
-                            ),
-                          )
+          child: Container(
+              color: ColorLot.ColorBackground,
+              child: Column(
+                children: [
+                  _buidLink(),
+                  Container(
+                      height: 60,
+                      width: double.infinity,
+                      margin: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: const <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 15.0,
+                              offset: Offset(0.0, 0.75))
                         ],
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      _flipClock()
-                    ],
-                  )),
-              buildResultFirst(),
-              buildGeneral()
-            ],
-          ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image: AssetImage("assets/img/keno.png"),
+                                  width: 80,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[200],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(6)),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      "Kỳ quay",
+                                      style: TextStyle(color: Colors.blue[900]),
+                                    ),
+                                    Text("#$drawCode",
+                                        style: TextStyle(
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          _flipClock()
+                        ],
+                      )),
+                  buildResultFirst(),
+                  buildGeneral()
+                ],
+              )),
         ));
   }
 
@@ -337,22 +390,26 @@ class _KenoLiveView extends State<KenoLiveView> {
   }
 
   Widget _flipClock() {
-    return FlipCountdownClock(
-      duration: Duration(seconds: 500),
-      flipDirection: AxisDirection.down,
-      digitSize: 26.0,
-      width: 30.0,
-      height: 40.0,
-      separatorColor: Colors.blue,
-      digitColor: Colors.white,
-      backgroundColor: Colors.blue,
-      // separatorColor: colors.onSurface,
-      // borderColor: colors.primary,
-      // hingeColor: colors.surface,
-      onDone: () {
-        setState(() {});
-      },
-      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-    );
+    if (secondCountdown > 0) {
+      return FlipCountdownClock(
+        duration: Duration(seconds: secondCountdown),
+        flipDirection: AxisDirection.down,
+        digitSize: 26.0,
+        width: 30.0,
+        height: 40.0,
+        separatorColor: Colors.blue,
+        digitColor: Colors.white,
+        backgroundColor: Colors.blue,
+        // separatorColor: colors.onSurface,
+        // borderColor: colors.primary,
+        // hingeColor: colors.surface,
+        onDone: () {
+          setState(() {});
+        },
+        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 }

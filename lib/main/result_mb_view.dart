@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lott_flutter_application/utils/box_shadow.dart';
 import '../../utils/common.dart';
 import '../controller/result_controller.dart';
 import '../model/response/get_result_lotomb_response.dart';

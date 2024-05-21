@@ -4,7 +4,7 @@
             "outputFile": "com.example.lott_flutter_application.app-mergeReleaseResources-10:/values-is/values-is.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\MANH-HV\\.gradle\\caches\\transforms-3\\a027156346e55676c7fb7b6d35ad0d6e\\transformed\\core-1.6.0\\res\\values-is\\values-is.xml",
+                    "source": "C:\\Users\\Admin\\.gradle\\caches\\transforms-3\\a027156346e55676c7fb7b6d35ad0d6e\\transformed\\core-1.6.0\\res\\values-is\\values-is.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

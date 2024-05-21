@@ -1,12 +1,12 @@
 <lint-module
     format="1"
-    dir="D:\04.Lottery\lott_flutter_application\android\app"
+    dir="D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app"
     name=":app"
     type="APP"
     maven="android:app:"
     gradle="7.3.0"
-    buildFolder="D:\04.Lottery\lott_flutter_application\build\app"
-    bootClassPath="C:\Users\MANH-HV\AppData\Local\Android\sdk\platforms\android-33\android.jar;C:\Users\MANH-HV\AppData\Local\Android\sdk\build-tools\30.0.3\core-lambda-stubs.jar"
+    buildFolder="D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\app"
+    bootClassPath="C:\Users\Admin\AppData\Local\Android\Sdk\platforms\android-33\android.jar;C:\Users\Admin\AppData\Local\Android\Sdk\build-tools\30.0.3\core-lambda-stubs.jar"
     javaSourceLevel="1.8"
     compileTarget="android-33">
   <lintOptions

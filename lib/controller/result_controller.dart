@@ -12,7 +12,9 @@ class ResultController extends ControllerMVC {
 
   Future<dynamic> getDrawKeno() async {
     RequestObject baseRequest = RequestObject(
-        code: CommandCode.DIC_GET_DRAW_KENO, data: "", signature: "");
+        code: CommandCode.DIC_GET_DRAW_KENO_V1,
+        data: "",
+        signature: "cfa55b55ecead97653a915b788eefb8b");
     return await _apiClient.execute(baseRequest);
   }
 

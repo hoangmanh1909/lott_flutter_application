@@ -7,6 +7,8 @@ import 'package:lott_flutter_application/main/result_mega_view.dart';
 import 'package:lott_flutter_application/main/result_power_view.dart';
 import 'package:lott_flutter_application/utils/box_shadow.dart';
 
+import '../utils/color.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -27,7 +29,7 @@ class _HomeViewView extends State<HomeView> {
           title: const Text("Kết quả xổ số"),
         ),
         body: Scaffold(
-            backgroundColor: Colors.black12,
+            backgroundColor: ColorLot.ColorBackground,
             body: Container(
               width: double.infinity,
               margin: const EdgeInsets.all(10),
