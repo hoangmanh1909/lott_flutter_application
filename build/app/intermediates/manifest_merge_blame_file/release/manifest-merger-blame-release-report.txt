@@ -1,6 +1,6 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.example.lott_flutter_application"
+3    package="com.lott.ketquaxoso"
 4    android:versionCode="1"
 5    android:versionName="1.0.0" >
 6
@@ -21,11 +21,11 @@
 15-->[androidx.core:core:1.6.0] C:\Users\Admin\.gradle\caches\transforms-3\a027156346e55676c7fb7b6d35ad0d6e\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
 16        android:icon="@mipmap/ic_launcher"
 16-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:6:9-43
-17        android:label="lott_flutter_application" >
-17-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:4:9-49
+17        android:label="ketquaxoso" >
+17-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:4:9-35
 18        <activity
 18-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:7:9-27:20
-19            android:name="com.example.lott_flutter_application.MainActivity"
+19            android:name="com.lott.ketquaxoso.MainActivity"
 19-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:8:13-41
 20            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
 20-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:12:13-163

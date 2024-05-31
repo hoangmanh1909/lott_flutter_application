@@ -2277,19 +2277,19 @@ androidx.webkit.internal.WebkitToCompatConverter:
     public java.lang.reflect.InvocationHandler convertWebMessagePort(android.webkit.WebMessagePort)
     public androidx.webkit.internal.WebResourceRequestAdapter convertWebResourceRequest(android.webkit.WebResourceRequest)
 androidx.webkit.internal.package-info
-com.example.lott_flutter_application.BuildConfig
-com.example.lott_flutter_application.R$attr
-com.example.lott_flutter_application.R$color
-com.example.lott_flutter_application.R$dimen
-com.example.lott_flutter_application.R$drawable
-com.example.lott_flutter_application.R$id
-com.example.lott_flutter_application.R$integer
-com.example.lott_flutter_application.R$layout
-com.example.lott_flutter_application.R$mipmap
-com.example.lott_flutter_application.R$string
-com.example.lott_flutter_application.R$style
-com.example.lott_flutter_application.R$styleable
-com.example.lott_flutter_application.R
+com.lott.ketquaxoso.BuildConfig
+com.lott.ketquaxoso.R$attr
+com.lott.ketquaxoso.R$color
+com.lott.ketquaxoso.R$dimen
+com.lott.ketquaxoso.R$drawable
+com.lott.ketquaxoso.R$id
+com.lott.ketquaxoso.R$integer
+com.lott.ketquaxoso.R$layout
+com.lott.ketquaxoso.R$mipmap
+com.lott.ketquaxoso.R$string
+com.lott.ketquaxoso.R$style
+com.lott.ketquaxoso.R$styleable
+com.lott.ketquaxoso.R
 io.flutter.BuildConfig
 io.flutter.FlutterInjector$Builder:
     public io.flutter.FlutterInjector$Builder setDeferredComponentManager(io.flutter.embedding.engine.deferredcomponents.DeferredComponentManager)

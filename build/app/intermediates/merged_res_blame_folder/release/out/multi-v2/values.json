@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.lott_flutter_application.app-mergeReleaseResources-10:/values/values.xml",
+            "outputFile": "com.lott.ketquaxoso.app-mergeReleaseResources-10:/values/values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Admin\\.gradle\\caches\\transforms-3\\e6a733bf08f88ecda4f888d580dd9a42\\transformed\\jetified-window-1.0.0-beta04\\res\\values\\values.xml",

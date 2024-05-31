@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.lott_flutter_application.app-mergeReleaseResources-10:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.lott.ketquaxoso.app-mergeReleaseResources-10:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
                     "source": "D:\\Vinatti\\11.Mobilotter\\14.Lottery\\Lott\\lott_flutter_application\\android\\app\\src\\main\\res\\values-night\\styles.xml",

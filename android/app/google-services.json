@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "997983276725",
+    "project_id": "ket-qua-xo-so-b5917",
+    "storage_bucket": "ket-qua-xo-so-b5917.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997983276725:android:3771840a5d92fdc9dfb8fc",
+        "android_client_info": {
+          "package_name": "com.lott.ketquaxoso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC36l78UHk3KzhVyt-x17OFpYIx6Yz7LUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

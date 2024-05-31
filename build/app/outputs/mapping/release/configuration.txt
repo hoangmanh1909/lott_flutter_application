@@ -130,7 +130,7 @@
 # The proguard configuration file for the following section is D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\app\intermediates\aapt_proguard_file\release\aapt_rules.txt
 -keep class android.app.Application { <init>(); }
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
--keep class com.example.lott_flutter_application.MainActivity { <init>(); }
+-keep class com.lott.ketquaxoso.MainActivity { <init>(); }
 
 # End of content from D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\app\intermediates\aapt_proguard_file\release\aapt_rules.txt
 # The proguard configuration file for the following section is C:\Users\Admin\.gradle\caches\transforms-3\e6a733bf08f88ecda4f888d580dd9a42\transformed\jetified-window-1.0.0-beta04\proguard.txt

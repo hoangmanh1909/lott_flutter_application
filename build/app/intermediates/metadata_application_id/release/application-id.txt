@@ -1,1 +1,1 @@
-com.example.lott_flutter_application
+com.lott.ketquaxoso
