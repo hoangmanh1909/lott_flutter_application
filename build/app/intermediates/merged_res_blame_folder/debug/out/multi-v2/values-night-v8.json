@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.lott.ketquaxoso.app-mergeDebugResources-10:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.lott.ketquaxoso.app-mergeDebugResources-14:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "D:\\Vinatti\\11.Mobilotter\\14.Lottery\\Lott\\lott_flutter_application\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\04.Lottery\\Ketquaxoso\\lott_flutter_application\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

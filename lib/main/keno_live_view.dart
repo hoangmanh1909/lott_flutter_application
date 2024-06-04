@@ -3,6 +3,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flip_board/flip_clock.dart';
 import 'package:flutter/material.dart';
 import 'package:lott_flutter_application/main/keno_view.dart';
@@ -33,12 +35,26 @@ class _KenoLiveView extends State<KenoLiveView> {
   String drawCode = "#";
   int secondCountdown = 0;
   Timer? timer;
+  String? urlLive;
+  FirebaseDatabase database = FirebaseDatabase.instance;
+
+  final rtdb = FirebaseDatabase.instanceFor(
+      app: Firebase.app(),
+      databaseURL: 'https://ket-qua-xo-so-b5917-default-rtdb.firebaseio.com/');
+
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       getData();
     });
+
+    id();
+  }
+
+  id() async {
+    final url = await rtdb.ref().child('urlLive').get();
+    urlLive = url.value.toString();
     late PlatformWebViewControllerCreationParams params =
         const PlatformWebViewControllerCreationParams();
 
@@ -67,8 +83,7 @@ class _KenoLiveView extends State<KenoLiveView> {
           );
         },
       )
-      ..loadRequest(Uri.parse(
-          'https://www.youtube.com/embed/f5EbuhXv9JY?si=rzK-Mqq8ykDEB3kK'));
+      ..loadRequest(Uri.parse(urlLive!));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -181,11 +196,11 @@ class _KenoLiveView extends State<KenoLiveView> {
                                 padding: EdgeInsets.all(10),
                                 child: Image(
                                   image: AssetImage("assets/img/keno.png"),
-                                  width: 80,
+                                  width: 75,
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                padding: EdgeInsets.symmetric(horizontal: 12),
                                 decoration: BoxDecoration(
                                   color: Colors.blue[200],
                                   borderRadius:
@@ -383,10 +398,14 @@ class _KenoLiveView extends State<KenoLiveView> {
   }
 
   Widget _buidLink() {
-    return SizedBox(
-        width: double.infinity,
-        height: 220,
-        child: WebViewWidget(controller: _controller));
+    if (urlLive != null) {
+      return SizedBox(
+          width: double.infinity,
+          height: 220,
+          child: WebViewWidget(controller: _controller));
+    } else {
+      return SizedBox.shrink();
+    }
   }
 
   Widget _flipClock() {
