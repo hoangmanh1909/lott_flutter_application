@@ -21,12 +21,12 @@ class _HomeViewView extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.red,
           automaticallyImplyLeading: false,
           centerTitle: true,
           titleTextStyle: const TextStyle(
               color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-          title: const Text("Kết quả xổ số"),
+          title: const Text("Kết quả vn"),
         ),
         body: Scaffold(
             backgroundColor: ColorLot.ColorBackground,
@@ -51,10 +51,24 @@ class _HomeViewView extends State<HomeView> {
                 const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
-                  height: 120,
-                  child: buildItem("assets/img/mienbac.png",
-                      "Kết quả xổ số Miền Bắc", Common.ID_LOTO235),
+                Row(
+                  children: [
+                    Expanded(
+                        child: buildItem("assets/img/mienbac.png", "Miền Bắc",
+                            Common.ID_LOTO235)),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: buildItem("assets/img/mienbac.png", "Miền Trung",
+                            Common.ID_LOTO235)),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: buildItem("assets/img/mienbac.png", "Miền Nam",
+                            Common.ID_LOTO235)),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
@@ -70,6 +84,28 @@ class _HomeViewView extends State<HomeView> {
                     Expanded(
                         child: buildItem("assets/img/max_3dpro.png",
                             "Max 3D Pro", Common.ID_MAX3D_PRO))
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: buildItem("assets/img/dientoan123.png",
+                            "Điện toán 123", Common.ID_LOTO235)),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: buildItem("assets/img/6x36.png",
+                            "Điện toán 6x36", Common.ID_LOTO235)),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: buildItem("assets/img/thantai4.png",
+                            "Thần tài 4", Common.ID_LOTO235)),
                   ],
                 ),
               ])),
@@ -97,7 +133,7 @@ class _HomeViewView extends State<HomeView> {
             ),
             Text(
               name,
-              style: const TextStyle(color: Colors.blue),
+              style: const TextStyle(color: Colors.red),
             )
           ]),
         ));

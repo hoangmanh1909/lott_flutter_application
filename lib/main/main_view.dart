@@ -20,6 +20,7 @@ class _MainViewState extends State<MainView> {
     HomeView(),
     KenoLiveView(),
     ResultKenoView(),
+    ResultKenoView(),
   ];
   bool isShowHistory = false;
   @override
@@ -28,19 +29,23 @@ class _MainViewState extends State<MainView> {
     Future.delayed(Duration.zero, () {});
   }
 
-  int visit = 1;
+  int visit = 0;
   List<TabItem> items = [
     TabItem(
-      icon: Icons.home,
-      title: 'Trang chủ',
+      icon: Icons.home_outlined,
+      title: 'Kết quả',
     ),
     TabItem(
-      icon: Icons.live_tv,
-      title: 'Trực tiếp',
+      icon: Icons.live_tv_outlined,
+      title: 'Keno Live',
     ),
     TabItem(
       icon: Icons.bookmarks,
       title: 'Keno',
+    ),
+    TabItem(
+      icon: Icons.local_play_outlined,
+      title: 'Bingo',
     ),
   ];
 
@@ -52,19 +57,16 @@ class _MainViewState extends State<MainView> {
             ? _widgetOptions.elementAt(visit)
             : SizedBox.shrink(),
       ),
-      bottomNavigationBar: BottomBarInspiredInside(
-        items: items,
-        backgroundColor: Colors.white,
-        color: Colors.blue,
-        colorSelected: Colors.white,
-        indexSelected: visit,
-        onTap: (int index) => setState(() {
-          visit = index;
-        }),
-        animated: true,
-        itemStyle: ItemStyle.circle,
-        chipStyle: const ChipStyle(convexBridge: true),
-      ),
+      bottomNavigationBar: BottomBarDefault(
+          items: items,
+          backgroundColor: Colors.white,
+          color: Colors.blue,
+          colorSelected: Colors.red,
+          indexSelected: visit,
+          onTap: (int index) => setState(() {
+                visit = index;
+              }),
+          animated: true),
     );
   }
 }

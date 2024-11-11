@@ -1,0 +1,4 @@
+#Tue Jun 04 21:58:44 ICT 2024
+base.0=D\:\\Vinatti\\11.Mobilotter\\14.Lottery\\Lott\\lott_flutter_application\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

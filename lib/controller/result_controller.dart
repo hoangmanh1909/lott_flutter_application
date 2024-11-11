@@ -65,4 +65,12 @@ class ResultController extends ControllerMVC {
         signature: "cfa55b55ecead97653a915b788eefb8b");
     return await _apiClient.execute(baseRequest);
   }
+
+  Future<dynamic> getPrams() async {
+    RequestObject baseRequest = RequestObject(
+        code: CommandCode.DIC_GET_PARAMS,
+        data: "",
+        signature: "cfa55b55ecead97653a915b788eefb8b");
+    return await _apiClient.execute(baseRequest);
+  }
 }

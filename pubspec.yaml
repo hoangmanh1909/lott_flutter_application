@@ -38,6 +38,7 @@ dependencies:
   awesome_bottom_bar: ^1.2.4
   webview_flutter: ^4.7.0
   webview_flutter_android: ^3.16.0
+  webview_flutter_wkwebview: ^3.13.0
   flip_board: ^1.0.0
   dio: ^5.4.2+1
   mvc_pattern: ^8.12.0

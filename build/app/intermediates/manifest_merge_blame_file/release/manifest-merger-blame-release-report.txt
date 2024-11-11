@@ -1,7 +1,7 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.lott.ketquaxoso"
-4    android:versionCode="1"
+4    android:versionCode="2"
 5    android:versionName="1.0.0" >
 6
 7    <uses-sdk
@@ -13,80 +13,160 @@
 11    <uses-permission android:name="android.permission.INTERNET" />
 11-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:2:5-66
 11-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:2:22-64
-12
-13    <application
-14        android:name="android.app.Application"
-14-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:5:9-42
-15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-15-->[androidx.core:core:1.6.0] C:\Users\Admin\.gradle\caches\transforms-3\a027156346e55676c7fb7b6d35ad0d6e\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
-16        android:icon="@mipmap/ic_launcher"
-16-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:6:9-43
-17        android:label="ketquaxoso" >
-17-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:4:9-35
-18        <activity
-18-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:7:9-27:20
-19            android:name="com.lott.ketquaxoso.MainActivity"
-19-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:8:13-41
-20            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-20-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:12:13-163
-21            android:exported="true"
-21-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:9:13-36
-22            android:hardwareAccelerated="true"
-22-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:13:13-47
-23            android:launchMode="singleTop"
-23-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:10:13-43
-24            android:theme="@style/LaunchTheme"
-24-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:11:13-47
-25            android:windowSoftInputMode="adjustResize" >
-25-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:14:13-55
-26
-27            <!--
-28                 Specifies an Android theme to apply to this Activity as soon as
-29                 the Android process has started. This theme is visible to the user
-30                 while the Flutter UI initializes. After that, this theme continues
-31                 to determine the Window background behind the Flutter UI.
-32            -->
-33            <meta-data
-33-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:19:13-22:17
-34                android:name="io.flutter.embedding.android.NormalTheme"
-34-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:20:15-70
-35                android:resource="@style/NormalTheme" />
-35-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:21:15-52
-36
-37            <intent-filter>
-37-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:23:13-26:29
-38                <action android:name="android.intent.action.MAIN" />
-38-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:24:17-68
-38-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:24:25-66
+12    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+13    <!-- <uses-sdk android:minSdkVersion="14"/> -->
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:22:5-79
+14-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:22:22-76
+15
+16    <application
+17        android:name="android.app.Application"
+17-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:5:9-42
+18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+18-->[androidx.core:core:1.6.0] C:\Users\Admin\.gradle\caches\transforms-3\78d1c6bba16ad442b3db1d057ace95ae\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+19        android:icon="@mipmap/ic_launcher"
+19-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:6:9-43
+20        android:label="ketquaxoso" >
+20-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:4:9-35
+21        <activity
+21-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:7:9-27:20
+22            android:name="com.lott.ketquaxoso.MainActivity"
+22-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:8:13-41
+23            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+23-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:12:13-163
+24            android:exported="true"
+24-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:9:13-36
+25            android:hardwareAccelerated="true"
+25-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:13:13-47
+26            android:launchMode="singleTop"
+26-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:10:13-43
+27            android:theme="@style/LaunchTheme"
+27-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:11:13-47
+28            android:windowSoftInputMode="adjustResize" >
+28-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:14:13-55
+29
+30            <!--
+31                 Specifies an Android theme to apply to this Activity as soon as
+32                 the Android process has started. This theme is visible to the user
+33                 while the Flutter UI initializes. After that, this theme continues
+34                 to determine the Window background behind the Flutter UI.
+35            -->
+36            <meta-data
+36-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:19:13-22:17
+37                android:name="io.flutter.embedding.android.NormalTheme"
+37-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:20:15-70
+38                android:resource="@style/NormalTheme" />
+38-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:21:15-52
 39
-40                <category android:name="android.intent.category.LAUNCHER" />
-40-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:25:17-76
-40-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:25:27-74
-41            </intent-filter>
-42        </activity>
-43        <!--
-44             Don't delete the meta-data below.
-45             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-46        -->
-47        <meta-data
-47-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:30:9-32:33
-48            android:name="flutterEmbedding"
-48-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:31:13-44
-49            android:value="2" />
-49-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:32:13-30
-50
-51        <uses-library
-51-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\e6a733bf08f88ecda4f888d580dd9a42\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
-52            android:name="androidx.window.extensions"
-52-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\e6a733bf08f88ecda4f888d580dd9a42\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
-53            android:required="false" />
-53-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\e6a733bf08f88ecda4f888d580dd9a42\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
-54        <uses-library
-54-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\e6a733bf08f88ecda4f888d580dd9a42\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
-55            android:name="androidx.window.sidecar"
-55-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\e6a733bf08f88ecda4f888d580dd9a42\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
-56            android:required="false" />
-56-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\e6a733bf08f88ecda4f888d580dd9a42\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
-57    </application>
-58
-59</manifest>
+40            <intent-filter>
+40-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:23:13-26:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:24:17-68
+41-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:24:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:25:17-76
+43-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:25:27-74
+44            </intent-filter>
+45        </activity>
+46        <!--
+47             Don't delete the meta-data below.
+48             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+49        -->
+50        <meta-data
+50-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:30:9-32:33
+51            android:name="flutterEmbedding"
+51-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:31:13-44
+52            android:value="2" />
+52-->D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\android\app\src\main\AndroidManifest.xml:32:13-30
+53
+54        <service
+54-->[:firebase_database] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-14:19
+55            android:name="com.google.firebase.components.ComponentDiscoveryService"
+55-->[:firebase_database] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:10:18-89
+56            android:directBootAware="true"
+56-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:32:13-43
+57            android:exported="false" >
+57-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:28:13-37
+58            <meta-data
+58-->[:firebase_database] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-13:85
+59                android:name="com.google.firebase.components:io.flutter.plugins.firebase.database.FlutterFirebaseAppRegistrar"
+59-->[:firebase_database] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:12:17-127
+60                android:value="com.google.firebase.components.ComponentRegistrar" />
+60-->[:firebase_database] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:13:17-82
+61            <meta-data
+61-->[:firebase_core] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_core\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-13:85
+62                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+62-->[:firebase_core] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_core\intermediates\merged_manifest\release\AndroidManifest.xml:12:17-124
+63                android:value="com.google.firebase.components.ComponentRegistrar" />
+63-->[:firebase_core] D:\Vinatti\11.Mobilotter\14.Lottery\Lott\lott_flutter_application\build\firebase_core\intermediates\merged_manifest\release\AndroidManifest.xml:13:17-82
+64            <meta-data
+64-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:29:13-31:85
+65                android:name="com.google.firebase.components:com.google.firebase.database.FirebaseDatabaseKtxRegistrar"
+65-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:30:17-120
+66                android:value="com.google.firebase.components.ComponentRegistrar" />
+66-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:31:17-82
+67            <meta-data
+67-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:32:13-34:85
+68                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+68-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:33:17-109
+69                android:value="com.google.firebase.components.ComponentRegistrar" />
+69-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Admin\.gradle\caches\transforms-3\7a5d8fda15596796ce0c91b72dc7b394\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:34:17-82
+70            <meta-data
+70-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\def1e8cf5aba3d8e5f45cbf96479d021\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:12:13-14:85
+71                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+71-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\def1e8cf5aba3d8e5f45cbf96479d021\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:13:17-116
+72                android:value="com.google.firebase.components.ComponentRegistrar" />
+72-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\def1e8cf5aba3d8e5f45cbf96479d021\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:14:17-82
+73            <meta-data
+73-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:35:13-37:85
+74                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+74-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:36:17-109
+75                android:value="com.google.firebase.components.ComponentRegistrar" />
+75-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:37:17-82
+76        </service>
+77
+78        <provider
+78-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:23:9-28:39
+79            android:name="com.google.firebase.provider.FirebaseInitProvider"
+79-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:24:13-77
+80            android:authorities="com.lott.ketquaxoso.firebaseinitprovider"
+80-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:25:13-72
+81            android:directBootAware="true"
+81-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:26:13-43
+82            android:exported="false"
+82-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:27:13-37
+83            android:initOrder="100" />
+83-->[com.google.firebase:firebase-common:20.4.2] C:\Users\Admin\.gradle\caches\transforms-3\c4f90cd120b0a1d02b9c911663f782e8\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:28:13-36
+84
+85        <uses-library
+85-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\6fe2bf8b87c32d2724cb77cabe067b26\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+86            android:name="androidx.window.extensions"
+86-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\6fe2bf8b87c32d2724cb77cabe067b26\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+87            android:required="false" />
+87-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\6fe2bf8b87c32d2724cb77cabe067b26\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+88        <uses-library
+88-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\6fe2bf8b87c32d2724cb77cabe067b26\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+89            android:name="androidx.window.sidecar"
+89-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\6fe2bf8b87c32d2724cb77cabe067b26\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+90            android:required="false" />
+90-->[androidx.window:window:1.0.0-beta04] C:\Users\Admin\.gradle\caches\transforms-3\6fe2bf8b87c32d2724cb77cabe067b26\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+91
+92        <activity
+92-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Admin\.gradle\caches\transforms-3\aba447c8dd778a5e2fb9623f7be2fb76\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+93            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+93-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Admin\.gradle\caches\transforms-3\aba447c8dd778a5e2fb9623f7be2fb76\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+94            android:exported="false"
+94-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Admin\.gradle\caches\transforms-3\aba447c8dd778a5e2fb9623f7be2fb76\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+95            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+95-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Admin\.gradle\caches\transforms-3\aba447c8dd778a5e2fb9623f7be2fb76\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+96
+97        <meta-data
+97-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Admin\.gradle\caches\transforms-3\5acd60bda194c418dda3dafb24c30b8c\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+98            android:name="com.google.android.gms.version"
+98-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Admin\.gradle\caches\transforms-3\5acd60bda194c418dda3dafb24c30b8c\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
+99            android:value="@integer/google_play_services_version" />
+99-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Admin\.gradle\caches\transforms-3\5acd60bda194c418dda3dafb24c30b8c\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
+100    </application>
+101
+102</manifest>

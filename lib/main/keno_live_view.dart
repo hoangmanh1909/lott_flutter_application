@@ -8,8 +8,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flip_board/flip_clock.dart';
 import 'package:flutter/material.dart';
 import 'package:lott_flutter_application/main/keno_view.dart';
+import 'package:lott_flutter_application/model/response/params_response.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../controller/result_controller.dart';
 import '../model/response/get_draw_keno_response.dart';
@@ -27,7 +29,6 @@ class KenoLiveView extends StatefulWidget {
 }
 
 class _KenoLiveView extends State<KenoLiveView> {
-  late final WebViewController _controller;
   final ResultController _con = ResultController();
 
   List<GetResultKenoResponse>? resultKenos;
@@ -36,11 +37,6 @@ class _KenoLiveView extends State<KenoLiveView> {
   int secondCountdown = 0;
   Timer? timer;
   String? urlLive;
-  FirebaseDatabase database = FirebaseDatabase.instance;
-
-  final rtdb = FirebaseDatabase.instanceFor(
-      app: Firebase.app(),
-      databaseURL: 'https://ket-qua-xo-so-b5917-default-rtdb.firebaseio.com/');
 
   @override
   void initState() {
@@ -48,19 +44,58 @@ class _KenoLiveView extends State<KenoLiveView> {
     Future.delayed(Duration.zero, () {
       getData();
     });
-
-    id();
   }
 
-  id() async {
-    final url = await rtdb.ref().child('urlLive').get();
-    urlLive = url.value.toString();
-    late PlatformWebViewControllerCreationParams params =
-        const PlatformWebViewControllerCreationParams();
+  getData() async {
+    if (mounted) {
+      showProcess(context);
+    }
+    await getParams();
+    await getResultKeno();
+    if (mounted) Navigator.of(context).pop();
+  }
+
+  getParams() async {
+    ResponseObject res = await _con.getPrams();
+
+    if (res.code == "00") {
+      List<ParamsResponse> params = List<ParamsResponse>.from(
+          (jsonDecode(res.data!)
+              .map((model) => ParamsResponse.fromJson(model))));
+      ParamsResponse p =
+          params.where((element) => element.parameter == "KENO_LIVE_URL").first;
+      urlLive = p.value;
+    }
+  }
+
+  getResultKeno() async {
+    ResponseObject res = await _con.getResultKeno();
+
+    if (res.code == "00") {
+      setState(() {
+        resultKenos = List<GetResultKenoResponse>.from((jsonDecode(res.data!)
+            .map((model) => GetResultKenoResponse.fromJson(model))));
+        setState(() {});
+      });
+    }
+  }
+
+  Widget buildWebview() {
+    if (urlLive == null) {
+      return SizedBox.shrink();
+    }
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
 
     final WebViewController controller =
         WebViewController.fromPlatformCreationParams(params);
-    // #enddocregion platform_features
 
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -75,85 +110,13 @@ class _KenoLiveView extends State<KenoLiveView> {
           onWebResourceError: (WebResourceError error) {},
         ),
       )
-      ..addJavaScriptChannel(
-        'Toaster',
-        onMessageReceived: (JavaScriptMessage message) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message.message)),
-          );
-        },
-      )
       ..loadRequest(Uri.parse(urlLive!));
-
-    // #docregion platform_features
-    if (controller.platform is AndroidWebViewController) {
-      AndroidWebViewController.enableDebugging(true);
-      (controller.platform as AndroidWebViewController)
-          .setMediaPlaybackRequiresUserGesture(false);
-    }
-    // #enddocregion platform_features
-
-    _controller = controller;
-  }
-
-  getData() async {
-    if (mounted) {
-      showProcess(context);
-    }
-    await getDrawKeno();
-    await getResultKeno();
-    if (mounted) Navigator.of(context).pop();
-  }
-
-  getDrawKeno() async {
-    ResponseObject res = await _con.getDrawKeno();
-    if (res.code == "00") {
-      drawKenoResponse = GetDrawKenoResponse.fromJson(jsonDecode(res.data!));
-      secondCountdown = drawKenoResponse!.closeTime!;
-      drawCode = drawKenoResponse!.drawCode!;
-      setState(() {});
-      if (drawKenoResponse != null) {
-        startTimer();
-      }
-    }
-  }
-
-  void startTimer() {
-    Duration oneSec = Duration(seconds: 1);
-    timer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (secondCountdown == 0) {
-          Future.delayed(Duration(seconds: 1), () {
-            getData();
-          });
-
-          setState(() {});
-        } else {
-          setState(() {
-            secondCountdown--;
-          });
-        }
-      },
+    var size = MediaQuery.of(context).size.width - 16;
+    return SizedBox(
+      width: size,
+      height: size / 2,
+      child: WebViewWidget(controller: controller),
     );
-  }
-
-  @override
-  void dispose() {
-    if (timer != null) timer!.cancel();
-    super.dispose();
-  }
-
-  getResultKeno() async {
-    ResponseObject res = await _con.getResultKeno();
-
-    if (res.code == "00") {
-      setState(() {
-        resultKenos = List<GetResultKenoResponse>.from((jsonDecode(res.data!)
-            .map((model) => GetResultKenoResponse.fromJson(model))));
-        setState(() {});
-      });
-    }
   }
 
   @override
@@ -170,68 +133,9 @@ class _KenoLiveView extends State<KenoLiveView> {
         body: SingleChildScrollView(
           child: Container(
               color: ColorLot.ColorBackground,
+              margin: EdgeInsets.only(top: 8),
               child: Column(
-                children: [
-                  _buidLink(),
-                  Container(
-                      height: 60,
-                      width: double.infinity,
-                      margin: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: const <BoxShadow>[
-                          BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 15.0,
-                              offset: Offset(0.0, 0.75))
-                        ],
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
-                                  image: AssetImage("assets/img/keno.png"),
-                                  width: 75,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 12),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[200],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(6)),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "Kỳ quay",
-                                      style: TextStyle(color: Colors.blue[900]),
-                                    ),
-                                    Text("#$drawCode",
-                                        style: TextStyle(
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          _flipClock()
-                        ],
-                      )),
-                  buildResultFirst(),
-                  buildGeneral()
-                ],
+                children: [buildWebview(), buildResultFirst(), buildGeneral()],
               )),
         ));
   }
@@ -395,40 +299,5 @@ class _KenoLiveView extends State<KenoLiveView> {
             ],
           );
         }).toList());
-  }
-
-  Widget _buidLink() {
-    if (urlLive != null) {
-      return SizedBox(
-          width: double.infinity,
-          height: 220,
-          child: WebViewWidget(controller: _controller));
-    } else {
-      return SizedBox.shrink();
-    }
-  }
-
-  Widget _flipClock() {
-    if (secondCountdown > 0) {
-      return FlipCountdownClock(
-        duration: Duration(seconds: secondCountdown),
-        flipDirection: AxisDirection.down,
-        digitSize: 26.0,
-        width: 30.0,
-        height: 40.0,
-        separatorColor: Colors.blue,
-        digitColor: Colors.white,
-        backgroundColor: Colors.blue,
-        // separatorColor: colors.onSurface,
-        // borderColor: colors.primary,
-        // hingeColor: colors.surface,
-        onDone: () {
-          setState(() {});
-        },
-        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-      );
-    } else {
-      return SizedBox.shrink();
-    }
   }
 }
