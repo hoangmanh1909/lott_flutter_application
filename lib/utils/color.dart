@@ -1,11 +1,11 @@
 // ignore_for_file: constant_identifier_names
 
-import 'dart:ui';
+// import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 class ColorLot {
-  static const Color ColorPrimary = Colors.blue;
+  static const Color ColorPrimary = Colors.red;
   static const Color ColorBackground = Color.fromRGBO(249, 249, 249, 1);
   static const Color ColorShadow = Color.fromRGBO(231, 231, 231, 1);
   static const Color ColorKeno = Color.fromRGBO(248, 192, 33, 1);
@@ -21,4 +21,5 @@ class ColorLot {
   static const Color ColorWait = Color.fromRGBO(254, 149, 0, 1);
   static const Color ColorBackgroundItem = Color.fromRGBO(250, 235, 215, 1);
   static const Color ColorBaoChung = Color.fromRGBO(23, 162, 184, 1);
+  static const Color ColorBackgroundMega = Color.fromRGBO(5, 8, 48, 1);
 }

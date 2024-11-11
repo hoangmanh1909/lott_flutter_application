@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart' as intl;
+
 String getDayOfWeekVi(String dayEn) {
   switch (dayEn) {
     case "Monday":
@@ -16,5 +18,13 @@ String getDayOfWeekVi(String dayEn) {
       return "Chủ nhật";
     default:
       return "N/A";
+  }
+}
+
+String formatAmount(dynamic amount) {
+  if (amount != null) {
+    return intl.NumberFormat.decimalPattern().format(amount);
+  } else {
+    return "";
   }
 }

@@ -10,4 +10,5 @@ class CommandCode {
   static String RESULT_MAX3D_PRO = "RESULT_MAX3D_PRO";
   static String RESULT_LOTOMB = "RESULT_LOTOMB";
   static String DIC_GET_PARAMS = "DIC_GET_PARAMS";
+  static String DRAW_RESULT_SEARCH = "DRAW_RESULT_SEARCH";
 }

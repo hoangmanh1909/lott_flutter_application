@@ -51,9 +51,15 @@
     },
     {
       "name": "dio",
-      "rootUri": "file:///C:/Users/MANH-HV/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.4.3+1",
+      "rootUri": "file:///C:/Users/MANH-HV/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.7.0",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "dio_web_adapter",
+      "rootUri": "file:///C:/Users/MANH-HV/AppData/Local/Pub/Cache/hosted/pub.dev/dio_web_adapter-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "fake_async",
@@ -69,9 +75,9 @@
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///C:/Users/MANH-HV/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-5.0.0",
+      "rootUri": "file:///C:/Users/MANH-HV/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-5.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.2"
     },
     {
       "name": "firebase_core_web",
@@ -279,7 +285,7 @@
     },
     {
       "name": "webview_flutter_wkwebview",
-      "rootUri": "file:///C:/Users/MANH-HV/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.1",
+      "rootUri": "file:///C:/Users/MANH-HV/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.14.0",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -290,7 +296,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-11-11T13:31:57.902844Z",
+  "generated": "2024-11-11T13:33:05.224824Z",
   "generator": "pub",
   "generatorVersion": "3.2.4"
 }

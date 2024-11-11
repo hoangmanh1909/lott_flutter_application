@@ -1,14 +1,17 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_const_constructors, duplicate_ignore
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lott_flutter_application/controller/result_controller.dart';
+import 'package:lott_flutter_application/model/request/draw_result_request.dart';
+import 'package:lott_flutter_application/model/response/draw_result_response.dart';
 import 'package:lott_flutter_application/model/response/response_object.dart';
 import 'package:lott_flutter_application/utils/dialog_process.dart';
+import 'package:lott_flutter_application/utils/dialog_search.dart';
+import 'package:lott_flutter_application/utils/widget_text.dart';
 import '../../utils/common.dart';
-import '../model/response/get_result_response.dart';
 import '../utils/color.dart';
 
 class ResultMegaView extends StatefulWidget {
@@ -21,7 +24,7 @@ class ResultMegaView extends StatefulWidget {
 class _ResultMegaViewState extends State<ResultMegaView> {
   final ResultController _con = ResultController();
 
-  List<GetResultResponse>? results;
+  List<DrawResultResponse>? results;
 
   @override
   void initState() {
@@ -32,17 +35,19 @@ class _ResultMegaViewState extends State<ResultMegaView> {
   }
 
   getResultMega() async {
+    DrawResultRequest req = DrawResultRequest();
+    req.isVietlott = "Y";
+    req.productID = 1;
+
     if (mounted) {
       showProcess(context);
     }
-    ResponseObject res = await _con.getResultMega();
+    ResponseObject res = await _con.getDrawResult(req);
     if (mounted) Navigator.of(context).pop();
     if (res.code == "00") {
-      setState(() {
-        results = List<GetResultResponse>.from((jsonDecode(res.data!)
-            .map((model) => GetResultResponse.fromJson(model))));
-        setState(() {});
-      });
+      results = List<DrawResultResponse>.from((jsonDecode(res.data!)
+          .map((model) => DrawResultResponse.fromJson(model))));
+      setState(() {});
     }
   }
 
@@ -50,7 +55,7 @@ class _ResultMegaViewState extends State<ResultMegaView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.red,
         automaticallyImplyLeading: false,
         centerTitle: true,
         titleTextStyle: const TextStyle(
@@ -62,6 +67,17 @@ class _ResultMegaViewState extends State<ResultMegaView> {
         ),
       ),
       body: buidView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          dialogSearch(context, "Chọn ngày xổ");
+        },
+        shape: CircleBorder(),
+        backgroundColor: Colors.red,
+        child: const Icon(
+          Icons.calendar_month_outlined,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
@@ -75,26 +91,24 @@ class _ResultMegaViewState extends State<ResultMegaView> {
                     scrollDirection: Axis.vertical,
                     itemCount: results!.length,
                     itemBuilder: (BuildContext ctxt, int index) {
-                      GetResultResponse item = results![index];
+                      DrawResultResponse item = results![index];
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 8,
-                          ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(4),
                             child: buildFooter(item),
                           ),
                           if (index == 0) ballFirst(item) else ballNormal(item),
                           const SizedBox(
                             height: 8,
                           ),
-                          Divider(
-                            height: 1,
-                            color: Colors.grey[200],
-                          )
+                          buidJackpot(item),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          buildTable(item),
                         ],
                       );
                     }))
@@ -106,18 +120,87 @@ class _ResultMegaViewState extends State<ResultMegaView> {
   }
 }
 
-Widget buildFooter(GetResultResponse item) {
-  DateTime tempDate = DateFormat("dd/MM/yyyy").parse(item.drawDate!);
-  String date = item.drawDate!;
+Widget buidJackpot(DrawResultResponse item) {
+  return Column(
+    children: [
+      textLableJackpot("Giá trị Jackpot"),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+            color: Colors.red,
+            border: Border.all(color: Colors.yellow, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: textValueJackpot(formatAmount(item.jackpot1!)),
+      )
+    ],
+  );
+}
+
+Widget buildTable(DrawResultResponse item) {
+  return Container(
+    decoration: BoxDecoration(
+        color: ColorLot.ColorBackgroundMega,
+        borderRadius: BorderRadius.all(Radius.circular(6))),
+    margin: EdgeInsets.all(4),
+    padding: EdgeInsets.all(4),
+    child: Table(
+        columnWidths: const <int, TableColumnWidth>{
+          0: FixedColumnWidth(70),
+          1: FixedColumnWidth(60),
+          2: FixedColumnWidth(80),
+        },
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        border: TableBorder.all(color: Colors.white),
+        children: [
+          TableRow(children: [
+            textLableTableBold("Giải"),
+            textLableTableBold("Trùng"),
+            textLableTableBold("Số lượng"),
+            textLableTableBold("Giá trị"),
+          ]),
+          TableRow(children: [
+            textLableTable("Jackpot"),
+            textLableTableCenter("6 số"),
+            textLableTableRight(item.numberOfJackpot1!.toString()),
+            textLableTableRight(formatAmount(item.jackpot1)),
+          ]),
+          TableRow(children: [
+            textLableTable("Giải nhất"),
+            textLableTableCenter("5 số"),
+            textLableTableRight(formatAmount(item.numberOf01!)),
+            textLableTableRight(formatAmount(10000000)),
+          ]),
+          TableRow(children: [
+            textLableTable("Giải nhì"),
+            textLableTableCenter("4 số"),
+            textLableTableRight(formatAmount(item.numberOf02!)),
+            textLableTableRight(formatAmount(300000)),
+          ]),
+          TableRow(children: [
+            textLableTable("Giải ba"),
+            textLableTableCenter("3 số"),
+            textLableTableRight(formatAmount(item.numberOf03!)),
+            textLableTableRight(formatAmount(30000)),
+          ])
+        ]),
+  );
+}
+
+Widget buildFooter(DrawResultResponse item) {
+  String drawDate =
+      "${item.drawDate!.toString().substring(6)}/${item.drawDate!.toString().substring(4, 6)}/${item.drawDate!.toString().substring(0, 4)}";
+  DateTime tempDate = DateFormat("dd/MM/yyyy").parse(drawDate);
+
   return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
     Text("Kỳ quay #${item.drawCode}",
-        style: TextStyle(color: Colors.blue.shade900)),
-    Text("${getDayOfWeekVi(DateFormat('EEEE').format(tempDate))}, $date",
-        style: TextStyle(color: Colors.blue.shade900))
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600)),
+    Text(
+        "${getDayOfWeekVi(DateFormat('EEEE').format(tempDate))}, ${DateFormat('dd/MM/yyyy').format(tempDate)}",
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600))
   ]);
 }
 
-Widget ballNormal(GetResultResponse item) {
+Widget ballNormal(DrawResultResponse item) {
   List<String> drawResults = item.result!.split(',');
 
   return Wrap(
@@ -140,8 +223,8 @@ Widget ballNormal(GetResultResponse item) {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: Colors.blue,
+                      fontSize: 16,
+                      color: Colors.black,
                       letterSpacing: 0.0)),
             ),
           );
@@ -149,7 +232,7 @@ Widget ballNormal(GetResultResponse item) {
       ).toList());
 }
 
-Widget ballFirst(GetResultResponse item) {
+Widget ballFirst(DrawResultResponse item) {
   List<String> drawResults = item.result!.split(',');
 
   return Wrap(
@@ -171,8 +254,7 @@ Widget ballFirst(GetResultResponse item) {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                    letterSpacing: 0.0,
+                    fontSize: 16,
                     color: Colors.white)),
           ),
         );

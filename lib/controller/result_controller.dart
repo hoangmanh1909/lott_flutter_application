@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:lott_flutter_application/model/request/draw_result_request.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../config/command_code.dart';
@@ -9,6 +12,14 @@ class ResultController extends ControllerMVC {
   ResultController._();
   static ResultController? _this;
   final ApiClient _apiClient = ApiClient();
+
+  Future<dynamic> getDrawResult(DrawResultRequest req) async {
+    RequestObject baseRequest = RequestObject(
+        code: CommandCode.DRAW_RESULT_SEARCH,
+        data: jsonEncode(req),
+        signature: "cfa55b55ecead97653a915b788eefb8b");
+    return await _apiClient.execute(baseRequest);
+  }
 
   Future<dynamic> getDrawKeno() async {
     RequestObject baseRequest = RequestObject(

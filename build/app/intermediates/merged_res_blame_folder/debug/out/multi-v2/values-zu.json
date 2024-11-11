@@ -4,7 +4,7 @@
             "outputFile": "com.lott.ketquaxoso.app-mergeDebugResources-14:/values-zu/values-zu.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Admin\\.gradle\\caches\\transforms-3\\78d1c6bba16ad442b3db1d057ace95ae\\transformed\\core-1.6.0\\res\\values-zu\\values-zu.xml",
+                    "source": "C:\\Users\\MANH-HV\\.gradle\\caches\\transforms-3\\78d1c6bba16ad442b3db1d057ace95ae\\transformed\\core-1.6.0\\res\\values-zu\\values-zu.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Admin\\.gradle\\caches\\transforms-3\\aba447c8dd778a5e2fb9623f7be2fb76\\transformed\\jetified-play-services-base-18.1.0\\res\\values-zu\\values.xml",
+                    "source": "C:\\Users\\MANH-HV\\.gradle\\caches\\transforms-3\\aba447c8dd778a5e2fb9623f7be2fb76\\transformed\\jetified-play-services-base-18.1.0\\res\\values-zu\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Admin\\.gradle\\caches\\transforms-3\\5acd60bda194c418dda3dafb24c30b8c\\transformed\\jetified-play-services-basement-18.3.0\\res\\values-zu\\values.xml",
+                    "source": "C:\\Users\\MANH-HV\\.gradle\\caches\\transforms-3\\5acd60bda194c418dda3dafb24c30b8c\\transformed\\jetified-play-services-basement-18.3.0\\res\\values-zu\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
