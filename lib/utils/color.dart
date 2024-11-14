@@ -21,5 +21,7 @@ class ColorLot {
   static const Color ColorWait = Color.fromRGBO(254, 149, 0, 1);
   static const Color ColorBackgroundItem = Color.fromRGBO(250, 235, 215, 1);
   static const Color ColorBaoChung = Color.fromRGBO(23, 162, 184, 1);
-  static const Color ColorBackgroundMega = Color.fromRGBO(5, 8, 48, 1);
+  static const Color ColorBackgroundMega = Color.fromRGBO(58, 64, 98, 1);
+  static const Color ColorBackgroundPower = Color.fromRGBO(249, 201, 121, 1);
+  static const Color ColorBackgroundMB = Color.fromRGBO(0, 115, 183, 1);
 }

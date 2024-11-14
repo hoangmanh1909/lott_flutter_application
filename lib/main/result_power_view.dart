@@ -9,6 +9,8 @@ import 'package:lott_flutter_application/model/request/draw_result_request.dart'
 import 'package:lott_flutter_application/model/response/draw_result_response.dart';
 import 'package:lott_flutter_application/model/response/response_object.dart';
 import 'package:lott_flutter_application/utils/dialog_process.dart';
+import 'package:lott_flutter_application/utils/dialog_search.dart';
+import 'package:lott_flutter_application/utils/widget_text.dart';
 import '../../utils/common.dart';
 import '../utils/color.dart';
 
@@ -83,29 +85,37 @@ class _ResultPowerViewState extends State<ResultPowerView> {
         ),
       ),
       body: buidView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          dialogSearch(context, "Chọn ngày xổ", results ?? [], filterDate);
+        },
+        shape: CircleBorder(),
+        backgroundColor: Colors.red,
+        child: const Icon(
+          Icons.calendar_month_outlined,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
   Widget buidView() {
-    if (results != null) {
+    if (resultsView != null) {
       return Container(
           color: Colors.white,
           child: Row(children: <Widget>[
             Expanded(
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: results!.length,
+                    itemCount: resultsView!.length,
                     itemBuilder: (BuildContext ctxt, int index) {
-                      DrawResultResponse item = results![index];
+                      DrawResultResponse item = resultsView![index];
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 8,
-                          ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(4),
                             child: buildFooter(item),
                           ),
                           Row(
@@ -141,10 +151,11 @@ class _ResultPowerViewState extends State<ResultPowerView> {
                           const SizedBox(
                             height: 8,
                           ),
-                          Divider(
-                            height: 1,
-                            color: Colors.grey[200],
-                          )
+                          buidJackpot(item),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          buildTable(item)
                         ],
                       );
                     }))
@@ -154,6 +165,85 @@ class _ResultPowerViewState extends State<ResultPowerView> {
       return SizedBox.shrink();
     }
   }
+}
+
+Widget buildTable(DrawResultResponse item) {
+  return Container(
+    decoration: BoxDecoration(
+        color: ColorLot.ColorBackgroundPower,
+        borderRadius: BorderRadius.all(Radius.circular(6))),
+    margin: EdgeInsets.all(4),
+    padding: EdgeInsets.all(4),
+    child: Table(
+        columnWidths: const <int, TableColumnWidth>{
+          0: FixedColumnWidth(70),
+          1: FixedColumnWidth(60),
+          2: FixedColumnWidth(80),
+        },
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        border: TableBorder.all(color: ColorLot.ColorPower),
+        children: [
+          TableRow(children: [
+            textLableTableBold("Giải", Colors.black),
+            textLableTableBold("Trùng", Colors.black),
+            textLableTableBold("Số lượng", Colors.black),
+            textLableTableBold("Giá trị", Colors.black),
+          ]),
+          TableRow(children: [
+            textLableTable("Jackpot", Colors.black),
+            textLableTableCenter("6 số", Colors.black),
+            textLableTableRight(
+                item.numberOfJackpot1!.toString(), Colors.black),
+            textLableTableRight(formatAmount(item.jackpot1), Colors.black),
+          ]),
+          TableRow(children: [
+            textLableTable("Giải nhất", Colors.black),
+            textLableTableCenter("5 số", Colors.black),
+            textLableTableRight(formatAmount(item.numberOf01!), Colors.black),
+            textLableTableRight(formatAmount(10000000), Colors.black),
+          ]),
+          TableRow(children: [
+            textLableTable("Giải nhì", Colors.black),
+            textLableTableCenter("4 số", Colors.black),
+            textLableTableRight(formatAmount(item.numberOf02!), Colors.black),
+            textLableTableRight(formatAmount(300000), Colors.black),
+          ]),
+          TableRow(children: [
+            textLableTable("Giải ba", Colors.black),
+            textLableTableCenter("3 số", Colors.black),
+            textLableTableRight(formatAmount(item.numberOf03!), Colors.black),
+            textLableTableRight(formatAmount(30000), Colors.black),
+          ])
+        ]),
+  );
+}
+
+Widget buidJackpot(DrawResultResponse item) {
+  return Column(
+    children: [
+      textLableJackpot("Giá trị Jackpot 1"),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+            color: ColorLot.ColorBackgroundPower,
+            border: Border.all(color: ColorLot.ColorPower, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: textValueJackpotPower(formatAmount(item.jackpot1!)),
+      ),
+      SizedBox(
+        height: 8,
+      ),
+      textLableJackpot("Giá trị Jackpot 2"),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+            color: ColorLot.ColorBackgroundPower,
+            border: Border.all(color: ColorLot.ColorPower, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: textValueJackpotPower(formatAmount(item.jackpot2!)),
+      )
+    ],
+  );
 }
 
 Widget buildFooter(DrawResultResponse item) {

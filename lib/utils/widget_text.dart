@@ -17,47 +17,53 @@ Widget textValueJackpot(String mes) {
   );
 }
 
-Widget textLableTable(String mes) {
+Widget textValueJackpotPower(String mes) {
+  return Text(
+    mes,
+    style:
+        TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w600),
+  );
+}
+
+Widget textLableTable(String mes, Color color) {
   return Padding(
     padding: EdgeInsets.all(3),
     child: Text(
       mes,
-      style: TextStyle(color: Colors.white, fontSize: 14),
+      style: TextStyle(color: color, fontSize: 14),
     ),
   );
 }
 
-Widget textLableTableRight(String mes) {
+Widget textLableTableRight(String mes, Color color) {
   return Container(
     padding: EdgeInsets.all(3),
     alignment: Alignment.centerRight,
     child: Text(
       mes,
-      style: TextStyle(
-          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+      style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w600),
     ),
   );
 }
 
-Widget textLableTableCenter(String mes) {
+Widget textLableTableCenter(String mes, Color color) {
   return Container(
     padding: EdgeInsets.all(3),
     alignment: Alignment.center,
     child: Text(
       mes,
-      style: TextStyle(color: Colors.white, fontSize: 14),
+      style: TextStyle(color: color, fontSize: 14),
     ),
   );
 }
 
-Widget textLableTableBold(String mes) {
+Widget textLableTableBold(String mes, Color color) {
   return Container(
     padding: EdgeInsets.all(2),
     alignment: Alignment.center,
     child: Text(
       mes,
-      style: TextStyle(
-          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+      style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w600),
     ),
   );
 }
