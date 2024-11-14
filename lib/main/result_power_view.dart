@@ -1,14 +1,15 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_const_constructors, duplicate_ignore
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lott_flutter_application/controller/result_controller.dart';
+import 'package:lott_flutter_application/model/request/draw_result_request.dart';
+import 'package:lott_flutter_application/model/response/draw_result_response.dart';
 import 'package:lott_flutter_application/model/response/response_object.dart';
 import 'package:lott_flutter_application/utils/dialog_process.dart';
 import '../../utils/common.dart';
-import '../model/response/get_result_response.dart';
 import '../utils/color.dart';
 
 class ResultPowerView extends StatefulWidget {
@@ -21,7 +22,8 @@ class ResultPowerView extends StatefulWidget {
 class _ResultPowerViewState extends State<ResultPowerView> {
   final ResultController _con = ResultController();
 
-  List<GetResultResponse>? results;
+  List<DrawResultResponse>? results;
+  List<DrawResultResponse>? resultsView;
 
   @override
   void initState() {
@@ -32,25 +34,44 @@ class _ResultPowerViewState extends State<ResultPowerView> {
   }
 
   getResultPower() async {
+    DrawResultRequest req = DrawResultRequest();
+    req.isVietlott = "Y";
+    req.productID = 2;
+
     if (mounted) {
       showProcess(context);
     }
-    ResponseObject res = await _con.getResultPower();
+    ResponseObject res = await _con.getDrawResult(req);
     if (mounted) Navigator.of(context).pop();
     if (res.code == "00") {
-      setState(() {
-        results = List<GetResultResponse>.from((jsonDecode(res.data!)
-            .map((model) => GetResultResponse.fromJson(model))));
-        setState(() {});
-      });
+      results = List<DrawResultResponse>.from((jsonDecode(res.data!)
+          .map((model) => DrawResultResponse.fromJson(model))));
+      resultsView = List<DrawResultResponse>.from((jsonDecode(res.data!)
+          .map((model) => DrawResultResponse.fromJson(model))));
+      setState(() {});
     }
+  }
+
+  filterDate(String drawCode) {
+    resultsView = results!
+        .where(
+          (element) => element.drawCode! == drawCode,
+        )
+        .toList();
+    if (resultsView!.isEmpty) {
+      resultsView = List<DrawResultResponse>.from(
+          (jsonDecode(jsonEncode(results))
+              .map((model) => DrawResultResponse.fromJson(model))));
+    }
+    setState(() {});
+    if (mounted) Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.red,
         automaticallyImplyLeading: false,
         centerTitle: true,
         titleTextStyle: const TextStyle(
@@ -75,7 +96,7 @@ class _ResultPowerViewState extends State<ResultPowerView> {
                     scrollDirection: Axis.vertical,
                     itemCount: results!.length,
                     itemBuilder: (BuildContext ctxt, int index) {
-                      GetResultResponse item = results![index];
+                      DrawResultResponse item = results![index];
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -135,18 +156,21 @@ class _ResultPowerViewState extends State<ResultPowerView> {
   }
 }
 
-Widget buildFooter(GetResultResponse item) {
-  DateTime tempDate = DateFormat("dd/MM/yyyy").parse(item.drawDate!);
-  String date = item.drawDate!;
+Widget buildFooter(DrawResultResponse item) {
+  String drawDate =
+      "${item.drawDate!.toString().substring(6)}/${item.drawDate!.toString().substring(4, 6)}/${item.drawDate!.toString().substring(0, 4)}";
+  DateTime tempDate = DateFormat("dd/MM/yyyy").parse(drawDate);
+
   return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
     Text("Kỳ quay #${item.drawCode}",
-        style: TextStyle(color: Colors.blue.shade900)),
-    Text("${getDayOfWeekVi(DateFormat('EEEE').format(tempDate))}, $date",
-        style: TextStyle(color: Colors.blue.shade900))
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600)),
+    Text(
+        "${getDayOfWeekVi(DateFormat('EEEE').format(tempDate))}, ${DateFormat('dd/MM/yyyy').format(tempDate)}",
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600))
   ]);
 }
 
-Widget ballNormal(GetResultResponse item) {
+Widget ballNormal(DrawResultResponse item) {
   List<String> drawResults = item.result!.split(',');
 
   return Wrap(
@@ -170,7 +194,7 @@ Widget ballNormal(GetResultResponse item) {
                   style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
-                      color: Colors.blue,
+                      color: Colors.black,
                       letterSpacing: 0.0)),
             ),
           );
@@ -178,7 +202,7 @@ Widget ballNormal(GetResultResponse item) {
       ).toList());
 }
 
-Widget ballFirst(GetResultResponse item) {
+Widget ballFirst(DrawResultResponse item) {
   List<String> drawResults = item.result!.split(',');
 
   return Wrap(

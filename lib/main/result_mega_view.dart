@@ -25,6 +25,7 @@ class _ResultMegaViewState extends State<ResultMegaView> {
   final ResultController _con = ResultController();
 
   List<DrawResultResponse>? results;
+  List<DrawResultResponse>? resultsView;
 
   @override
   void initState() {
@@ -47,8 +48,25 @@ class _ResultMegaViewState extends State<ResultMegaView> {
     if (res.code == "00") {
       results = List<DrawResultResponse>.from((jsonDecode(res.data!)
           .map((model) => DrawResultResponse.fromJson(model))));
+      resultsView = List<DrawResultResponse>.from((jsonDecode(res.data!)
+          .map((model) => DrawResultResponse.fromJson(model))));
       setState(() {});
     }
+  }
+
+  filterDate(String drawCode) {
+    resultsView = results!
+        .where(
+          (element) => element.drawCode! == drawCode,
+        )
+        .toList();
+    if (resultsView!.isEmpty) {
+      resultsView = List<DrawResultResponse>.from(
+          (jsonDecode(jsonEncode(results))
+              .map((model) => DrawResultResponse.fromJson(model))));
+    }
+    setState(() {});
+    if (mounted) Navigator.of(context).pop();
   }
 
   @override
@@ -69,7 +87,7 @@ class _ResultMegaViewState extends State<ResultMegaView> {
       body: buidView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          dialogSearch(context, "Chọn ngày xổ");
+          dialogSearch(context, "Chọn ngày xổ", results ?? [], filterDate);
         },
         shape: CircleBorder(),
         backgroundColor: Colors.red,
@@ -82,16 +100,16 @@ class _ResultMegaViewState extends State<ResultMegaView> {
   }
 
   Widget buidView() {
-    if (results != null) {
+    if (resultsView != null) {
       return Container(
           color: Colors.white,
           child: Row(children: <Widget>[
             Expanded(
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: results!.length,
+                    itemCount: resultsView!.length,
                     itemBuilder: (BuildContext ctxt, int index) {
-                      DrawResultResponse item = results![index];
+                      DrawResultResponse item = resultsView![index];
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
