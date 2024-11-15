@@ -1,1 +1,0 @@
- D:\\Vinatti\\11.Mobilotter\\14.Lottery\\Lott\\lott_flutter_application\\.dart_tool\\flutter_build\\39aafbe81878b2d99ff9366da2947b3b\\native_assets.yaml: 
